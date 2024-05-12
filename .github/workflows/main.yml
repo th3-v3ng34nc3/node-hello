@@ -1,0 +1,27 @@
+name: Docker Auto
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.rajvanshi }}
+          password: ${{ secrets.B4by_bug#1 }}
+
+      - name: Build Docker image
+        run: docker build -t bansira/node-hello:latest .
+
+      - name: Push Docker image to DockerHub
+        run: |
+          docker push bansira/node-hello:latest
